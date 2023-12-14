@@ -45,14 +45,14 @@ spec:
         - name: ALPINE_DATABASE_DRIVER
           value: "org.postgresql.Driver"
         - name: ALPINE_DATABASE_URL
-          value: jdbc:postgresql://{{ .Release.Name }}-postgresql/{{ .Values.postgresql.postgresqlDatabase }}
+          value: jdbc:postgresql://{{ .Release.Name }}-postgresql/{{ .Values.postgresql.auth.database }}
         - name: ALPINE_DATABASE_PASSWORD
           valueFrom:
             secretKeyRef:
               name: {{ .Release.Name }}-postgresql
-              key: postgresql-password
+              key: password
         - name: ALPINE_DATABASE_USERNAME
-          value: {{ .Values.postgresql.postgresqlUsername }}
+          value: {{ .Values.postgresql.auth.username }}
         {{- end }}
         {{- with .Values.apiserver.env }}
         {{- toYaml . | nindent 8 }}
